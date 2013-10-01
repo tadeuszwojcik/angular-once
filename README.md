@@ -17,7 +17,7 @@ There isn't much you can do about it except displaying less data (via paging for
 Should we wait till browsers implement [`Object.observe`](http://updates.html5rocks.com/2012/11/Respond-to-change-with-Object-observe) and AngularJS 
 will used it so we get [40x speed-up](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024978.html)?
 We could, but when your data is readonly (and in many cases is) you can use this project which sets up once time bindings 
-and doesn't create any watchers so is incredibly fast!
+and doesn't create any watchers so is incredibly **fast**!
 
 **bottom line: If you use AngularJS, have performance issues and need to display lots of readonly data, this project is for you!**
 
@@ -33,6 +33,36 @@ $ bower install angular-once
 or copy once.js file to your project and reference it.
 
 ## Usage
+
+Lets look at this standard AngularJS code snippet:
+
+```html
+<ul>
+	<li ng-repeat="user in users">
+	  <a ng-href="/user/{{user.id}}">{{ user.name }}</a>
+		<a ng-href="/user/{{user.id}}"><img ng-src="{{user.avatarUrl}}"></a>
+		<div ng-class="{'formatted': user.description}" ng-bind="user.description"></div>
+	</li>
+</ul>
+```
+
+Now given 100 users, it's 600 watchers and list is not only information on page in most cases.
+If users information needs to be only displayed, not edited inline we don't need to set up watchers in `ng-repeat` directive,
+especially as user goes back and forward withing an app many times, list is refreshed on each display as controller in angular ar transient.
+
+Let's look at the same example using **angular-once**:
+```html
+<ul>
+	<li ng-repeat="user in users">
+	  <a once-href="/user/{{user.id}}" once-text="user.name"></a>
+		<a once-href="/user/{{user.id}}"><img once-src="{{user.avatarUrl}}"></a>
+		<div once-class="{'formatted': user.description}" once-bind="user.description"></div>
+	</li>
+</ul>
+```
+Number of watchers? **0** (actually 1 as angular uses separate watch for ng-repeat directive itself).
+
+
 
 ## Credits
 Thanks both to @Pasvaz for bindonce and @abourget for $watch fighters, as both modules were inspiration and starting point for creating this module.
