@@ -3,7 +3,7 @@
  * @version v0.1.0 - 2013-10-01
  * @link https://github.com/tadeuszwojcik/angular-once
  * @author Tadeusz Wójcik <tadeuszwojcik@gmail.com>
- * @license MIT License, http://www.opensource.org/licenses/MIT
+ * @license WTFPL License, https://github.com/tadeuszwojcik/angular-once/blob/master/LICENSE.txt
  */
 
 (function(window, angular, undefined) {
