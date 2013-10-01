@@ -16,7 +16,7 @@ but when that number increases page can become unresponsive expecially on low-en
 There isn't much you can do about it, except displaying less data (via paging for example), but it's not always the case.
 Should we wait till browsers implement [`Object.observe`](http://updates.html5rocks.com/2012/11/Respond-to-change-with-Object-observe) and AngularJS 
 will used it so we get [40x speed-up](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024978.html)?
-We could, but when your data is readonly (and in many cases is) you can use this project which sets up once time bindings 
+We could, but when your data is readonly (and in many cases is) you can use this project which sets up one time bindings 
 and doesn't create any watchers so is incredibly **fast**!
 
 **bottom line: If you use AngularJS, have performance issues and need to display lots of readonly data, this project is for you!**
