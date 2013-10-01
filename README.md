@@ -63,9 +63,23 @@ Let's look at the same example using **angular-once**:
 Number of watchers? **0** (actually 1 as angular uses separate watch for ng-repeat directive itself).
 
 
+## API
+
+List below contains comparison of angular-once directives ( **one time bindings** ) with  build in angular directives ( **two-way bindings** ).
+
+One important thing to note is that when using 'angular-once' and binded data is `undefined` it creates watch which waits till data is available (promise is resolved)
+and then remove that watch itself. Reason for that is to be able to use it with data which is not yet available, but still readonly.
+
+| 	angular-once | native angular equivalent  | example usage  |
+| ------------- |:-------------:| -----:|
+| `once-if = "condition"`     | `ng-if`  |`<ANY once-if="user.isAdmin"></ANY>`|
 
 ## Credits
 Thanks both to @Pasvaz for bindonce and @abourget for $watch fighters, as both modules were inspiration and starting point for creating this module.
+
+## Similar projects
+* [bindonce](https://github.com/Pasvaz/bindonce) - similar, but requires addtional bindonce directive which wraps other dindonce directives.
+* [watch fighters](https://github.com/abourget/abourget-angular) - similar, but doesn't handle case when there is no data yet to bind, simply binds nothing, so doesn't work with promises.
 
 ## License
   [WTFPL](LICENSE.txt)
