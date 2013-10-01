@@ -78,7 +78,12 @@ and then remove that watch itself. Reason for that is to be able to use it with 
 | `once-href="value"`     | `ng-href` |`<a once-href="user.websiteUrl" ></a>`|
 | `once-title="value"`     | `ng-attr-title` |`<ANY once-title="user.name"></ANY>`|
 | `once-alt="value"`     | `ng-attr-alt` |`<img once-alt="user.name" />`|
-| `once-id="value"`     | `ng-attr-id` |`<ANy once-id="user.name" /></ANY>`|
+| `once-id="value"`     | `ng-attr-id` |`<ANY once-id="user.name" /></ANY>`|
+| `once-if="condition"`     | `ng-if` |`<ANY once-if="user.isAdmin" /></ANY>`|
+| `once-class="class:condition"`     | `ng-class` |`<ANY once-class="{'primary': user.isAdmin}" /></ANY>`|
+| `once-style="value"`     | `ng-style` |`<ANY once-style="{color:blue}" /></ANY>`|
+| `once-show="condition"`     | `ng-show` |`<ANY once-show="user.isAdmin" /></ANY>`|
+| `once-hide="condition"`     | `ng-hide` |`<ANY once-hide="user.isAdmin" /></ANY>`|
 ## Credits
 Thanks both to @Pasvaz for bindonce and @abourget for $watch fighters, as both modules were inspiration and starting point for creating this module.
 
