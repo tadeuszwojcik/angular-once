@@ -80,7 +80,7 @@ and then remove that watch itself. Reason for that is to be able to use it with 
 | `once-alt="value"`     | `ng-attr-alt` |`<img once-alt="user.name" />`|
 | `once-id="value"`     | `ng-attr-id` |`<ANY once-id="user.name" /></ANY>`|
 | `once-if="condition"`     | `ng-if` |`<ANY once-if="user.isAdmin" /></ANY>`|
-| `once-class="class:condition"`     | `ng-class` |`<ANY once-class="{'primary': user.isAdmin}" /></ANY>`|
+| `once-class="class:condition"`     | `ng-class` |`<ANY once-class="{'p': user.admin}" /></ANY>`|
 | `once-style="value"`     | `ng-style` |`<ANY once-style="{color:blue}" /></ANY>`|
 | `once-show="condition"`     | `ng-show` |`<ANY once-show="user.isAdmin" /></ANY>`|
 | `once-hide="condition"`     | `ng-hide` |`<ANY once-hide="user.isAdmin" /></ANY>`|
