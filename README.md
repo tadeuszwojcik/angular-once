@@ -5,7 +5,7 @@ One time bindings for AngularJS.
 ## Why?
 
 AngularJS is a great framework with many superb features, but when is used to display large amount 
-of data it can become quite slow due to it's binding mechanism.
+of data, it can become quite slow due to it's binding mechanism.
 
 When you bind data via `{{ }}` or `ng-bind` directives, 
 angular sets up `watch` under the cover which is being executed every time angular event loop triggers (for example after `$http` request, or keypress).
