@@ -137,6 +137,6 @@
     }
   ];
 
-  bindingsDefinitions.forEach(makeBindingDirective);
-  
+  angular.forEach(bindingsDefinitions, makeBindingDirective);
+
 })(window, window.angular);
