@@ -9,8 +9,15 @@
 (function(window, angular, undefined) {
   'use strict';
 
-  function setOneTimeBinding($scope, element, thingToWatch, done) {
-    var value = $scope.$eval(thingToWatch);
+  function setOneTimeBinding($scope, element, thingToWatch, definition, $interpolate) {
+    var done = definition.binding,
+      value;
+
+    if (!definition.shouldInterpolate) {
+      value = $scope.$eval(thingToWatch);
+    } else {
+      value = $interpolate(thingToWatch)($scope);
+    }
 
     if (value !== undefined) return done(element, value);
 
@@ -33,11 +40,11 @@
   var once = angular.module('once', []);
 
   function makeBindingDirective(definition) {
-    once.directive(definition.name, function() {
+    once.directive(definition.name, ['$interpolate', function($interpolate) {
       return function($scope, element, attrs) {
-        setOneTimeBinding($scope, element, attrs[definition.name], definition.binding);
+        setOneTimeBinding($scope, element, attrs[definition.name], definition, $interpolate);
       };
-    });
+    }]);
   }
 
   var bindingsDefinitions = [
@@ -55,12 +62,14 @@
     },
     {
       name: 'onceSrc',
+      shouldInterpolate: true,
       binding: function(element, value) {
         element.attr('src', value);
       }
     },
     {
       name: 'onceHref',
+      shouldInterpolate: true,
       binding: function(element, value) {
         element.attr('href', value);
       }
