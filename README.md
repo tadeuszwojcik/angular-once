@@ -30,9 +30,12 @@ and doesn't create any watchers so is incredibly **fast**!
 $ bower install angular-once
 ```
 
-or copy once.js file to your project and reference it.
+or copy once.js file.
 
 ## Usage
+### Prerequisites
+* reference once.js file
+* add `once` module as dependency to your app (`angular.module('yourApp', ['once'])`)
 
 Lets look at this standard AngularJS code snippet:
 
