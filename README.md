@@ -73,9 +73,6 @@ Number of watchers? **0** (actually 1 as angular uses separate watch for ng-repe
 
 List below contains comparison of angular-once directives ( **one time bindings** ) with  build in angular directives ( **two-way bindings** ).
 
-One important thing to note is that when using 'angular-once' and binded data is `undefined` it creates watch which waits till data is available (promise is resolved)
-and then remove that watch itself. Reason for that is to be able to use it with data which is not yet available, but still readonly.
-
 | 	angular-once | native angular equivalent  | example usage  |
 | ------------- |:-------------:|:-----:|
 | `once-text="value"`     | `ng-bind` or `{{ }}`  |`<ANY once-text="user.name"></ANY>`|
@@ -90,6 +87,17 @@ and then remove that watch itself. Reason for that is to be able to use it with 
 | `once-style="value"`     | `ng-style` |`<ANY once-style="{color:blue}" /></ANY>`|
 | `once-show="condition"`     | `ng-show` |`<ANY once-show="user.isAdmin" /></ANY>`|
 | `once-hide="condition"`     | `ng-hide` |`<ANY once-hide="user.isAdmin" /></ANY>`|
+| `once-attr-*="value"`     | `ng-attr-*` |`<ANY once-attr-tooltip="user.name" /></ANY>`|
+
+
+#### Important:
+One important thing to note is that when using `angular-once` and bound data is `undefined` it creates watch which waits till data is available (promise is resolved)
+and then remove that watch itself. Reason for that is to be able to use it with data which is not yet available, but still readonly.
+
+In case bound data contains static and dynamic part, for example `once-src="'http://placekitten.com/'+ kitty.size"` and `kitty-size` isn't
+immediately available, you can use `once-wait-for` directive to wait till `kitten.size` is fetched, so it will look like:
+`once-src="'http://placekitten.com/'+ kitty.size" once-wait-for='kitty.size'`
+
 ## Credits
 Thanks both to @Pasvaz for bindonce and @abourget for $watch fighters, as both modules were inspiration and starting point for creating this module.
 
