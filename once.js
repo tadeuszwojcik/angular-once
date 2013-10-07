@@ -6,7 +6,7 @@
  * @license WTFPL License, https://github.com/tadeuszwojcik/angular-once/blob/master/LICENSE.txt
  */
 
-(function(window, angular, undefined) {
+(function (window, angular, undefined) {
   'use strict';
 
   function setOneTimeBinding($scope, element, thingToWatch, definition, $interpolate) {
@@ -21,7 +21,7 @@
 
     if (value !== undefined) return done(element, value);
 
-    var watcherRemover = $scope.$watch(thingToWatch, function(newValue) {
+    var watcherRemover = $scope.$watch(thingToWatch, function (newValue) {
       if (newValue == undefined) return;
 
       removeWatcher();
@@ -40,8 +40,8 @@
   var once = angular.module('once', []);
 
   function makeBindingDirective(definition) {
-    once.directive(definition.name, ['$interpolate', function($interpolate) {
-      return function($scope, element, attrs) {
+    once.directive(definition.name, ['$interpolate', function ($interpolate) {
+      return function ($scope, element, attrs) {
         setOneTimeBinding($scope, element, attrs[definition.name], definition, $interpolate);
       };
     }]);
@@ -50,51 +50,51 @@
   var bindingsDefinitions = [
     {
       name: 'onceText',
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.text(value);
       }
     },
     {
       name: 'onceHtml',
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.html(value);
       }
     },
     {
       name: 'onceSrc',
       shouldInterpolate: true,
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.attr('src', value);
       }
     },
     {
       name: 'onceHref',
       shouldInterpolate: true,
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.attr('href', value);
       }
     },
     {
       name: 'onceTitle',
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.attr('title', value);
       }
     },
     {
       name: 'onceAlt',
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.attr('alt', value);
       }
     },
     {
       name: 'onceId',
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.attr('id', value);
       }
     },
     {
       name: 'onceIf',
-      binding: function(element, value) {
+      binding: function (element, value) {
         if (value) {
           element.replaceWith(element.children());
 
@@ -105,10 +105,10 @@
     },
     {
       name: 'onceClass',
-      binding: function(element, value) {
+      binding: function (element, value) {
         if (angular.isObject(value) && !angular.isArray(value)) {
           var results = [];
-          angular.forEach(value, function(val, index) {
+          angular.forEach(value, function (val, index) {
             if (val) results.push(index);
           });
           value = results;
@@ -120,13 +120,13 @@
     },
     {
       name: 'onceStyle',
-      binding: function(element, value) {
+      binding: function (element, value) {
         element.css(value);
       }
     },
     {
       name: 'onceShow',
-      binding: function(element, value) {
+      binding: function (element, value) {
         if (value) {
           element.css('display', '');
         } else {
@@ -136,7 +136,7 @@
     },
     {
       name: 'onceHide',
-      binding: function(element, value) {
+      binding: function (element, value) {
         if (value) {
           element.css('display', 'none');
         } else {
