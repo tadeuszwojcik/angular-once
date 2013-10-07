@@ -33,38 +33,41 @@ $ bower install angular-once
 or copy once.js file.
 
 ## Usage
-### Prerequisites
+##### Prerequisites
 * reference once.js file
 * add `once` module as dependency to your app (`angular.module('yourApp', ['once'])`)
+
+
 
 Lets look at this standard AngularJS code snippet:
 
 ```html
 <ul>
 	<li ng-repeat="user in users">
-	  <a ng-href="/user/{{user.id}}">{{ user.name }}</a>
-		<a ng-href="/user/{{user.id}}"><img ng-src="{{user.avatarUrl}}"></a>
+	  <a ng-href="{{ user.profileUrl }}">{{ user.name }}</a>
+		<a ng-href="{{ user.profileUrl }}"><img ng-src="{{ user.avatarUrl }}"></a>
 		<div ng-class="{'formatted': user.description}" ng-bind="user.description"></div>
 	</li>
 </ul>
 ```
 
-Now given 100 users, it's 600 watchers and list is not only information on page in most cases.
-If users information needs to be only displayed, not edited inline we don't need to set up watchers in `ng-repeat` directive,
-especially as user goes back and forward withing an app many times, list is refreshed on each display as controller in angular ar transient.
+Now given 100 users it's 600 watchers and list is not only information on page in most cases.
+If users data needs to be only displayed not edited inline, we don't need to set up watchers in `ng-repeat` directive,
+especially as user goes back and forward within the app many times list is being refreshed on each display as controller in angular are transient.
 
 Let's look at the same example using **angular-once**:
 ```html
 <ul>
 	<li ng-repeat="user in users">
-	  <a once-href="/user/{{user.id}}" once-text="user.name"></a>
-		<a once-href="/user/{{user.id}}"><img once-src="{{user.avatarUrl}}"></a>
+	  <a once-href="user.profileUrl" once-text="user.name"></a>
+		<a once-href="user.profileUrl"><img once-src="user.avatarUrl"></a>
 		<div once-class="{'formatted': user.description}" once-bind="user.description"></div>
 	</li>
 </ul>
 ```
 Number of watchers? **0** (actually 1 as angular uses separate watch for ng-repeat directive itself).
 
+**IMPORTANT: Build in angular `ng-href` and `ng-src` directives support interpolation (`{{ }}` notation), `angular-once` doesn't due to performance reasons (avoid setting up watchers).**
 
 ## API
 
