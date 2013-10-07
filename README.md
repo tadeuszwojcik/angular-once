@@ -87,7 +87,7 @@ List below contains comparison of angular-once directives ( **one time bindings*
 | `once-style="value"`     | `ng-style` |`<ANY once-style="{color:blue}" /></ANY>`|
 | `once-show="condition"`     | `ng-show` |`<ANY once-show="user.isAdmin" /></ANY>`|
 | `once-hide="condition"`     | `ng-hide` |`<ANY once-hide="user.isAdmin" /></ANY>`|
-| `once-attr-*="value"`     | `ng-attr-*` |`<ANY once-attr-tooltip="user.name" /></ANY>`|
+| `once once-attr-*="value"`     | `ng-attr-*` |`<ANY once once-attr-tooltip="user.name" /></ANY>`|
 
 
 #### Important:
