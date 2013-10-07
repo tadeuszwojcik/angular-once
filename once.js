@@ -135,7 +135,23 @@
       }
     }
   ];
-  
+
+  once.directive('once', function () {
+
+    return function ($scope, element, attrs) {
+      angular.forEach(attrs, function (attr, attrName) {
+
+        if (!/^onceAttr[A-Z]/.test(attrName)) return;
+        var bind = function (element, value) {
+          var name = attrName.substr(8).toLowerCase();
+          element.attr(name, value);
+        }
+
+        setOneTimeBinding($scope, element, attr, bind);
+      });
+    };
+  });
+
   angular.forEach(bindingsDefinitions, makeBindingDirective);
 
 })(window, window.angular);
