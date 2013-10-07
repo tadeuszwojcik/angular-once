@@ -9,15 +9,19 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  function setOneTimeBinding($scope, element, thingToWatch, done) {
-    var value = $scope.$eval(thingToWatch);
-    if (value !== undefined) return done(element, value);
+  function setOneTimeBinding($scope, element, attrs, bindingAttr, done) {
+    var bindingValue = $scope.$eval(attrs[bindingAttr]);
+    var canBeBoundImmediately = (attrs.onceWaitFor ? $scope.$eval(attrs.onceWaitFor) : bindingValue) !== undefined;
+    if (canBeBoundImmediately) return done(element, bindingValue);
+
+    var thingToWatch = attrs.onceWaitFor || attrs[bindingAttr];
+
 
     var watcherRemover = $scope.$watch(thingToWatch, function (newValue) {
       if (newValue == undefined) return;
-
       removeWatcher();
-      return done(element, newValue);
+
+      return setOneTimeBinding($scope, element, attrs, bindingAttr, done);
     });
 
     function removeWatcher() {
@@ -34,7 +38,7 @@
   function makeBindingDirective(definition) {
     once.directive(definition.name, function () {
       return function ($scope, element, attrs) {
-        setOneTimeBinding($scope, element, attrs[definition.name], definition.binding);
+        setOneTimeBinding($scope, element, attrs, definition.name, definition.binding);
       };
     });
   }
@@ -136,6 +140,8 @@
     }
   ];
 
+  angular.forEach(bindingsDefinitions, makeBindingDirective);
+
   once.directive('once', function () {
 
     return function ($scope, element, attrs) {
@@ -147,11 +153,9 @@
           element.attr(name, value);
         }
 
-        setOneTimeBinding($scope, element, attr, bind);
+        setOneTimeBinding($scope, element, attrs, attrName, bind);
       });
     };
   });
-
-  angular.forEach(bindingsDefinitions, makeBindingDirective);
 
 })(window, window.angular);
