@@ -89,11 +89,8 @@
     {
       name: 'onceIf',
       binding: function (element, value) {
-        if (value) {
-          element.replaceWith(element.children());
-
-        } else {
-          element.replaceWith(' ');
+        if (!value) {
+          element.remove();
         }
       }
     },
