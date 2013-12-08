@@ -90,7 +90,7 @@
       name: 'onceIf',
       binding: function (element, value) {
         if (!value) {
-          element.replaceWith(' ');
+          element.remove();
         }
       }
     },
