@@ -1,6 +1,6 @@
 /**
  * angular-once - one time bindings for AngularJS
- * @version v0.1.0 - 2013-10-01
+ * @version v0.1.5 - 2013-12-11
  * @link https://github.com/tadeuszwojcik/angular-once
  * @author Tadeusz Wójcik <tadeuszwojcik@gmail.com>
  * @license WTFPL License, https://github.com/tadeuszwojcik/angular-once/blob/master/LICENSE.txt
