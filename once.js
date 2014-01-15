@@ -146,7 +146,9 @@
 
         if (!/^onceAttr[A-Z]/.test(attrName)) return;
         var bind = function (element, value) {
-          var name = attrName.substr(8).toLowerCase();
+		  var dashedName = attrName.replace(/[A-Z]/g, function(match) { return '-'+match.toLowerCase(); });
+          var name = dashedName.substr(10);
+		  
           element.attr(name, value);
         }
 
