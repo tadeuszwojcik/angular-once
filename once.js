@@ -47,7 +47,7 @@
     {
       name: 'onceText',
       binding: function (element, value) {
-        element.text(value);
+        element.text(value !== null ? value : "");
       }
     },
     {
