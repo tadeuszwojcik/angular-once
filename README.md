@@ -67,7 +67,7 @@ Let's look at the same example using **angular-once**:
 ```
 Number of watchers? **0** (actually 1 as angular uses separate watch for ng-repeat directive itself).
 
-**IMPORTANT: Build in angular `ng-href` and `ng-src` directives support interpolation (`{{ }}` notation), `angular-once` doesn't due to performance reasons (avoid setting up watchers).**
+**IMPORTANT: Built in angular `ng-href` and `ng-src` directives support interpolation (`{{ }}` notation), `angular-once` doesn't due to performance reasons (avoid setting up watchers).**
 
 ## API
 
