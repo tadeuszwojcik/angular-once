@@ -9,5 +9,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/tadeuszwojcik/angular-once.git"
-  }
+  },
+  "main": "once.js"
 }
