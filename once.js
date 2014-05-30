@@ -14,17 +14,17 @@
     var watchingValue = watcherParser($scope);
     // if we have a valid value, render the binding's value
     if (watchingValue !== undefined) {
-      // if we're watching and binding are the same, use watching's value, else parse the new value
+      // if watching and binding $parsers are the same, use watching's value, else $parse the new value
       return done(element, watcherParser == bindingParser ? watchingValue : bindingParser($scope));
     }
     
-    // we do not have a valid value, so we add a watch
+    // we do not have a valid value, so we register a $watch
     var watcherRemover = $scope.$watch(watch, function (newValue) {
       // wait until we have a valid value
       if (newValue == undefined) return;
       // remove this $watch
       removeWatcher();
-      // if we're watching and binding are the same, use watching's value, else parse the new value
+      // if watching and binding $parsers are the same, use watching's value, else $parse the new value
       return done(element, watcherParser == bindingParser ? newValue : bindingParser($scope));
     });
 
