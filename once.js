@@ -9,19 +9,23 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  function setOneTimeBinding($scope, element, attrs, bindingAttr, done) {
-    var bindingValue = $scope.$eval(attrs[bindingAttr]);
-    var canBeBoundImmediately = (attrs.onceWaitFor ? $scope.$eval(attrs.onceWaitFor) : bindingValue) !== undefined;
-    if (canBeBoundImmediately) return done(element, bindingValue);
-
-    var thingToWatch = attrs.onceWaitFor || attrs[bindingAttr];
-
-
-    var watcherRemover = $scope.$watch(thingToWatch, function (newValue) {
+  function setOneTimeBinding($scope, element, watch, watcherParser, bindingParser, done) {
+    // get value to watch
+    var watchingValue = watcherParser($scope);
+    // if we have a valid value, render the binding's value
+    if (watchingValue !== undefined) {
+      // if watching and binding $parsers are the same, use watching's value, else $parse the new value
+      return done(element, watcherParser == bindingParser ? watchingValue : bindingParser($scope));
+    }
+    
+    // we do not have a valid value, so we register a $watch
+    var watcherRemover = $scope.$watch(watch, function (newValue) {
+      // wait until we have a valid value
       if (newValue == undefined) return;
+      // remove this $watch
       removeWatcher();
-
-      return setOneTimeBinding($scope, element, attrs, bindingAttr, done);
+      // if watching and binding $parsers are the same, use watching's value, else $parse the new value
+      return done(element, watcherParser == bindingParser ? newValue : bindingParser($scope));
     });
 
     function removeWatcher() {
@@ -36,11 +40,14 @@
   var once = angular.module('once', []);
 
   function makeBindingDirective(definition) {
-    once.directive(definition.name, function () {
+    once.directive(definition.name, ['$parse', function ($parse) {
       return function ($scope, element, attrs) {
-        setOneTimeBinding($scope, element, attrs, definition.name, definition.binding);
+        var watch = attrs.onceWaitFor || attrs[definition.name];
+        var watcherParser = $parse(watch);
+        var bindingParser = attrs.onceWaitFor ? $parse(attrs[definition.name]) : watcherParser;
+        setOneTimeBinding($scope, element, watch, watcherParser, bindingParser, definition.binding);
       };
-    });
+    }]);
   }
 
   var bindingsDefinitions = [
@@ -140,17 +147,16 @@
   angular.forEach(bindingsDefinitions, makeBindingDirective);
 
   once.directive('once', function () {
-
     return function ($scope, element, attrs) {
       angular.forEach(attrs, function (attr, attrName) {
 
         if (!/^onceAttr[A-Z]/.test(attrName)) return;
-        var bind = function (element, value) {
-		  var dashedName = attrName.replace(/[A-Z]/g, function(match) { return '-'+match.toLowerCase(); });
+        var bind = function(element, value) {
+          var dashedName = attrName.replace(/[A-Z]/g, function(match) { return '-' + match.toLowerCase(); });
           var name = dashedName.substr(10);
-		  
+
           element.attr(name, value);
-        }
+        };
 
         setOneTimeBinding($scope, element, attrs, attrName, bind);
       });
