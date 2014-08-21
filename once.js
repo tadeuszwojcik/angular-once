@@ -146,21 +146,22 @@
 
   angular.forEach(bindingsDefinitions, makeBindingDirective);
 
-  once.directive('once', function () {
-    return function ($scope, element, attrs) {
-      angular.forEach(attrs, function (attr, attrName) {
+  once.directive('once', ['$parse', function ($parse) {
+      return function ($scope, element, attrs) {
+          angular.forEach(attrs, function (attr, attrName) {
+              if (!/^onceAttr[A-Z]/.test(attrName)) return;
+              var watch = attrs.onceWaitFor || attrs[attrName];
+              var watcherParser = $parse(watch);
+              var bindingParser = attrs.onceWaitFor ? $parse(attrs[attrName]) : watcherParser;
+              var binding = function (element,value) {
+                  var dashedName = attrName.replace(/[A-Z]/g, function (match) { return '-' + match.toLowerCase(); });
+                  var name = dashedName.substr(10);
 
-        if (!/^onceAttr[A-Z]/.test(attrName)) return;
-        var bind = function(element, value) {
-          var dashedName = attrName.replace(/[A-Z]/g, function(match) { return '-' + match.toLowerCase(); });
-          var name = dashedName.substr(10);
-
-          element.attr(name, value);
-        };
-
-        setOneTimeBinding($scope, element, attrs, attrName, bind);
-      });
-    };
-  });
+                  element.attr(name, value);
+              }
+              setOneTimeBinding($scope, element, watch, watcherParser, bindingParser, binding);
+          });
+      };
+  }]);
 
 })(window, window.angular);
