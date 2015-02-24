@@ -60,7 +60,7 @@ Let's look at the same example using **angular-once**:
 	<li ng-repeat="user in users">
 	  <a once-href="user.profileUrl" once-text="user.name"></a>
 		<a once-href="user.profileUrl"><img once-src="user.avatarUrl"></a>
-		<div once-class="{'formatted': user.description}" once-bind="user.description"></div>
+		<div once-class="{'formatted': user.description}" once-text="user.description"></div>
 	</li>
 </ul>
 ```
