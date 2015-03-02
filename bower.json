@@ -1,6 +1,6 @@
 {
   "name": "angular-once",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "once.js",
   "description": "one time bindings for AngularJS",
   "homepage": "https://github.com/tadeuszwojcik/angular-once",

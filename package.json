@@ -1,7 +1,7 @@
 {
   "name": "angular-once",
   "author": "Tadeusz Wójcik <tadeuszwojcik@gmail.com>",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-bump": "~0.0.1"
